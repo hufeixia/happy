@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.p2p.model.Message" >
+    <constructor >
+      <idArg column="mid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="mname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="msex" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="elite" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mcartid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="bosdy" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="maddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="organ" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="education" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="marital" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="monthly" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="thing" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="housing" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mid, uid, mname, msex, elite, mcartid, bosdy, maddress, organ, education, marital, 
+    monthly, thing, housing
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where mid = #{mid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from message
+    where mid = #{mid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.p2p.model.Message" >
+    insert into message (mid, uid, mname, 
+      msex, elite, mcartid, 
+      bosdy, maddress, organ, 
+      education, marital, monthly, 
+      thing, housing)
+    values (#{mid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{mname,jdbcType=VARCHAR}, 
+      #{msex,jdbcType=CHAR}, #{elite,jdbcType=VARCHAR}, #{mcartid,jdbcType=VARCHAR}, 
+      #{bosdy,jdbcType=TIMESTAMP}, #{maddress,jdbcType=VARCHAR}, #{organ,jdbcType=VARCHAR}, 
+      #{education,jdbcType=VARCHAR}, #{marital,jdbcType=VARCHAR}, #{monthly,jdbcType=INTEGER}, 
+      #{thing,jdbcType=VARCHAR}, #{housing,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.p2p.model.Message" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="mname != null" >
+        mname,
+      </if>
+      <if test="msex != null" >
+        msex,
+      </if>
+      <if test="elite != null" >
+        elite,
+      </if>
+      <if test="mcartid != null" >
+        mcartid,
+      </if>
+      <if test="bosdy != null" >
+        bosdy,
+      </if>
+      <if test="maddress != null" >
+        maddress,
+      </if>
+      <if test="organ != null" >
+        organ,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="marital != null" >
+        marital,
+      </if>
+      <if test="monthly != null" >
+        monthly,
+      </if>
+      <if test="thing != null" >
+        thing,
+      </if>
+      <if test="housing != null" >
+        housing,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="mname != null" >
+        #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="msex != null" >
+        #{msex,jdbcType=CHAR},
+      </if>
+      <if test="elite != null" >
+        #{elite,jdbcType=VARCHAR},
+      </if>
+      <if test="mcartid != null" >
+        #{mcartid,jdbcType=VARCHAR},
+      </if>
+      <if test="bosdy != null" >
+        #{bosdy,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maddress != null" >
+        #{maddress,jdbcType=VARCHAR},
+      </if>
+      <if test="organ != null" >
+        #{organ,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="marital != null" >
+        #{marital,jdbcType=VARCHAR},
+      </if>
+      <if test="monthly != null" >
+        #{monthly,jdbcType=INTEGER},
+      </if>
+      <if test="thing != null" >
+        #{thing,jdbcType=VARCHAR},
+      </if>
+      <if test="housing != null" >
+        #{housing,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.Message" >
+    update message
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="mname != null" >
+        mname = #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="msex != null" >
+        msex = #{msex,jdbcType=CHAR},
+      </if>
+      <if test="elite != null" >
+        elite = #{elite,jdbcType=VARCHAR},
+      </if>
+      <if test="mcartid != null" >
+        mcartid = #{mcartid,jdbcType=VARCHAR},
+      </if>
+      <if test="bosdy != null" >
+        bosdy = #{bosdy,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maddress != null" >
+        maddress = #{maddress,jdbcType=VARCHAR},
+      </if>
+      <if test="organ != null" >
+        organ = #{organ,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="marital != null" >
+        marital = #{marital,jdbcType=VARCHAR},
+      </if>
+      <if test="monthly != null" >
+        monthly = #{monthly,jdbcType=INTEGER},
+      </if>
+      <if test="thing != null" >
+        thing = #{thing,jdbcType=VARCHAR},
+      </if>
+      <if test="housing != null" >
+        housing = #{housing,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mid = #{mid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.p2p.model.Message" >
+    update message
+    set uid = #{uid,jdbcType=INTEGER},
+      mname = #{mname,jdbcType=VARCHAR},
+      msex = #{msex,jdbcType=CHAR},
+      elite = #{elite,jdbcType=VARCHAR},
+      mcartid = #{mcartid,jdbcType=VARCHAR},
+      bosdy = #{bosdy,jdbcType=TIMESTAMP},
+      maddress = #{maddress,jdbcType=VARCHAR},
+      organ = #{organ,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      marital = #{marital,jdbcType=VARCHAR},
+      monthly = #{monthly,jdbcType=INTEGER},
+      thing = #{thing,jdbcType=VARCHAR},
+      housing = #{housing,jdbcType=VARCHAR}
+    where mid = #{mid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.DetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.p2p.model.Details" >
+    <constructor >
+      <idArg column="details_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="details_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="did" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="dname" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    details_id, did, details_name,dname
+  </sql>
+
+    <delete id="delByPrimary" parameterType="com.p2p.model.Details">
+      DELETE from details
+      where details_id = #{detailsId}
+
+    </delete>
+
+  <select id="listAllPage" resultType="com.p2p.model.Details">
+    SELECT  *
+    FROM  details
+    WHERE 1=1
+    <if test="detailsName != null">
+    and details_name LIKE  concat('%',#{detailsName},'%')
+    </if>
+
+  </select>
+  <select id="listPage" resultType="com.p2p.model.Details">
+    SELECT  *
+    FROM  details
+    WHERE 1=1
+    <if test="dname != null">
+    and dname LIKE  concat('%',#{dname},'%')
+    </if>
+
+  </select>
+
+  <insert id="insertSelective" parameterType="com.p2p.model.Details" >
+    insert into details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailsId != null" >
+        details_id,
+      </if>
+      <if test="did != null" >
+        did,
+      </if>
+      <if test="detailsName != null" >
+        details_name,
+      </if>
+      <if test="dname != null">
+        dname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailsId != null" >
+        #{detailsId,jdbcType=INTEGER},
+      </if>
+      <if test="did != null" >
+        #{did}
+      </if>
+      <if test="detailsName != null" >
+        #{detailsName,jdbcType=VARCHAR},
+      </if>
+      <if test="dname != null" >
+        #{dname},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.Details" >
+    update details
+    <set >
+      <if test="detailsName != null" >
+        details_name = #{detailsName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where details_id = #{detailsId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

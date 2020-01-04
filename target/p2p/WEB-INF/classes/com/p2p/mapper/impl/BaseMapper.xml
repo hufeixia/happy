@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.BaseMapper" >
+  <resultMap id="BaseResultMap" type="com.p2p.model.Base" >
+    <constructor >
+      <idArg column="bid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="bytpe" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="bstatus" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="breamrk" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bid, bname, bytpe, bstatus, breamrk
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base
+    where bid = #{bid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from base
+    where bid = #{bid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.p2p.model.Base" >
+    insert into base (bid, bname, bytpe, 
+      bstatus, breamrk)
+    values (#{bid,jdbcType=INTEGER}, #{bname,jdbcType=VARCHAR}, #{bytpe,jdbcType=VARCHAR}, 
+      #{bstatus,jdbcType=VARCHAR}, #{breamrk,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.p2p.model.Base" >
+    insert into base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="bname != null" >
+        bname,
+      </if>
+      <if test="bytpe != null" >
+        bytpe,
+      </if>
+      <if test="bstatus != null" >
+        bstatus,
+      </if>
+      <if test="breamrk != null" >
+        breamrk,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="bname != null" >
+        #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="bytpe != null" >
+        #{bytpe,jdbcType=VARCHAR},
+      </if>
+      <if test="bstatus != null" >
+        #{bstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="breamrk != null" >
+        #{breamrk,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.Base" >
+    update base
+    <set >
+      <if test="bname != null" >
+        bname = #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="bytpe != null" >
+        bytpe = #{bytpe,jdbcType=VARCHAR},
+      </if>
+      <if test="bstatus != null" >
+        bstatus = #{bstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="breamrk != null" >
+        breamrk = #{breamrk,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.p2p.model.Base" >
+    update base
+    set bname = #{bname,jdbcType=VARCHAR},
+      bytpe = #{bytpe,jdbcType=VARCHAR},
+      bstatus = #{bstatus,jdbcType=VARCHAR},
+      breamrk = #{breamrk,jdbcType=VARCHAR}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+</mapper>

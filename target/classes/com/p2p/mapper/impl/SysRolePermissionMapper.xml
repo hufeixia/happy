@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.SysRolePermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.p2p.model.SysRolePermission" >
+    <constructor >
+      <arg column="roleid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="perid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.p2p.model.SysRolePermission" >
+    insert into t_sys_role_permission (roleid, perid)
+    values (#{roleid,jdbcType=INTEGER}, #{perid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.p2p.model.SysRolePermission" >
+    insert into t_sys_role_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="perid != null" >
+        perid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="perid != null" >
+        #{perid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

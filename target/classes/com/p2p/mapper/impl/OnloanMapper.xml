@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.OnloanMapper" >
+  <resultMap id="BaseResultMap" type="com.p2p.model.Onloan" >
+    <constructor >
+      <idArg column="oid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="omoney" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ointerest" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="timelimit" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="oremark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ocreatedate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="otitle" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    oid, uid, omoney, ointerest, timelimit, oremark, ocreatedate, status, otitle
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from onloan
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from onloan
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.p2p.model.Onloan" >
+    insert into onloan (oid, uid, omoney, 
+      ointerest, timelimit, oremark, 
+      ocreatedate, status, otitle
+      )
+    values (#{oid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{omoney,jdbcType=INTEGER}, 
+      #{ointerest,jdbcType=VARCHAR}, #{timelimit,jdbcType=VARCHAR}, #{oremark,jdbcType=VARCHAR}, 
+      #{ocreatedate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{otitle,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.p2p.model.Onloan" >
+    insert into onloan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="omoney != null" >
+        omoney,
+      </if>
+      <if test="ointerest != null" >
+        ointerest,
+      </if>
+      <if test="timelimit != null" >
+        timelimit,
+      </if>
+      <if test="oremark != null" >
+        oremark,
+      </if>
+      <if test="ocreatedate != null" >
+        ocreatedate,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="otitle != null" >
+        otitle,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="omoney != null" >
+        #{omoney,jdbcType=INTEGER},
+      </if>
+      <if test="ointerest != null" >
+        #{ointerest,jdbcType=VARCHAR},
+      </if>
+      <if test="timelimit != null" >
+        #{timelimit,jdbcType=VARCHAR},
+      </if>
+      <if test="oremark != null" >
+        #{oremark,jdbcType=VARCHAR},
+      </if>
+      <if test="ocreatedate != null" >
+        #{ocreatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="otitle != null" >
+        #{otitle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.Onloan" >
+    update onloan
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="omoney != null" >
+        omoney = #{omoney,jdbcType=INTEGER},
+      </if>
+      <if test="ointerest != null" >
+        ointerest = #{ointerest,jdbcType=VARCHAR},
+      </if>
+      <if test="timelimit != null" >
+        timelimit = #{timelimit,jdbcType=VARCHAR},
+      </if>
+      <if test="oremark != null" >
+        oremark = #{oremark,jdbcType=VARCHAR},
+      </if>
+      <if test="ocreatedate != null" >
+        ocreatedate = #{ocreatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="otitle != null" >
+        otitle = #{otitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.p2p.model.Onloan" >
+    update onloan
+    set uid = #{uid,jdbcType=INTEGER},
+      omoney = #{omoney,jdbcType=INTEGER},
+      ointerest = #{ointerest,jdbcType=VARCHAR},
+      timelimit = #{timelimit,jdbcType=VARCHAR},
+      oremark = #{oremark,jdbcType=VARCHAR},
+      ocreatedate = #{ocreatedate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      otitle = #{otitle,jdbcType=VARCHAR}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>

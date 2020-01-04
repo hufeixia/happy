@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.AccountFlowMapper">
+    <resultMap id="BaseResultMap" type="com.p2p.model.AccountFlow">
+        <constructor>
+            <idArg column="flow_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="user_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="flow_type" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="flow_money" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="flow_date" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    flow_id, user_name, flow_type, flow_money, flow_date
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from account_flow
+        where flow_id = #{flowId,jdbcType=INTEGER}
+    </select>
+    <select id="listPage" resultType="com.p2p.model.AccountFlow">
+        SELECT *
+        FROM account_flow
+        WHERE 1=1
+        <if test="flowType !=null">
+            and flow_type = #{flowType}
+        </if>
+        <if test="userName != null">
+            and user_name LIKE concat('%',#{userName},'%')
+        </if>
+    </select>
+    <select id="listAllPage" resultType="com.p2p.model.AccountFlow">
+        SELECT *
+        FROM account_flow
+        WHERE 1=1
+        <if test="startDate != null and endDate != null">
+            and date_format(flow_date,'%Y-%m-%d') BETWEEN #{startDate} and #{endDate}
+        </if>
+        <if test="userName != null">
+            and user_name LIKE concat('%',#{userName},'%')
+        </if>
+
+    </select>
+
+    <insert id="insertSelective" parameterType="com.p2p.model.AccountFlow">
+        insert into account_flow
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="flowId != null">
+                flow_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="flowType != null">
+                flow_type,
+            </if>
+            <if test="flowMoney != null">
+                flow_money,
+            </if>
+            <if test="flowDate != null">
+                flow_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="flowId != null">
+                #{flowId,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="flowType != null">
+                #{flowType,jdbcType=VARCHAR},
+            </if>
+            <if test="flowMoney != null">
+                #{flowMoney,jdbcType=INTEGER},
+            </if>
+            <if test="flowDate != null">
+                #{flowDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

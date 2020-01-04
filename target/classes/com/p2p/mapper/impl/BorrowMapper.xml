@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.BorrowMapper" >
+  <resultMap id="BaseResultMap" type="com.p2p.model.Borrow" >
+    <constructor >
+      <idArg column="borrow_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="borrow_money" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="borrow_interest" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="borrow_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="borrow_between_date" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="borrow_data" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="borrow_remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="method" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="borrow_status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    borrow_id, user_name, borrow_money, borrow_interest, borrow_title, borrow_between_date, 
+    borrow_data, borrow_remark, method, borrow_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from borrow
+    where borrow_id = #{borrowId,jdbcType=INTEGER}
+  </select>
+  <select id="QueryListBorrow" resultType="com.p2p.model.Borrow" parameterType="com.p2p.model.Borrow">
+    select * from borrow where user_name = #{userName}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from borrow
+    where borrow_id = #{borrowId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.p2p.model.Borrow" >
+    insert into borrow (user_name, borrow_money,
+      borrow_interest, borrow_title, borrow_between_date, 
+      borrow_data, borrow_remark, method)
+    values (#{userName,jdbcType=VARCHAR}, #{borrowMoney,jdbcType=INTEGER},
+      #{borrowInterest,jdbcType=VARCHAR}, #{borrowTitle,jdbcType=VARCHAR}, #{borrowBetweenDate,jdbcType=VARCHAR}, 
+      #{borrowData,jdbcType=TIMESTAMP}, #{borrowRemark,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.p2p.model.Borrow" >
+    insert into borrow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="borrowId != null" >
+        borrow_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="borrowMoney != null" >
+        borrow_money,
+      </if>
+      <if test="borrowInterest != null" >
+        borrow_interest,
+      </if>
+      <if test="borrowTitle != null" >
+        borrow_title,
+      </if>
+      <if test="borrowBetweenDate != null" >
+        borrow_between_date,
+      </if>
+      <if test="borrowData != null" >
+        borrow_data,
+      </if>
+      <if test="borrowRemark != null" >
+        borrow_remark,
+      </if>
+      <if test="method != null" >
+        method,
+      </if>
+      <if test="borrowStatus != null" >
+        borrow_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="borrowId != null" >
+        #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowMoney != null" >
+        #{borrowMoney,jdbcType=INTEGER},
+      </if>
+      <if test="borrowInterest != null" >
+        #{borrowInterest,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowTitle != null" >
+        #{borrowTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowBetweenDate != null" >
+        #{borrowBetweenDate,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowData != null" >
+        #{borrowData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowRemark != null" >
+        #{borrowRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowStatus != null" >
+        #{borrowStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.Borrow" >
+    update borrow
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowMoney != null" >
+        borrow_money = #{borrowMoney,jdbcType=INTEGER},
+      </if>
+      <if test="borrowInterest != null" >
+        borrow_interest = #{borrowInterest,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowTitle != null" >
+        borrow_title = #{borrowTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowBetweenDate != null" >
+        borrow_between_date = #{borrowBetweenDate,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowData != null" >
+        borrow_data = #{borrowData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowRemark != null" >
+        borrow_remark = #{borrowRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowStatus != null" >
+        borrow_status = #{borrowStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where borrow_id = #{borrowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.p2p.model.Borrow" >
+    update borrow
+    set user_name = #{userName,jdbcType=VARCHAR},
+      borrow_money = #{borrowMoney,jdbcType=INTEGER},
+      borrow_interest = #{borrowInterest,jdbcType=VARCHAR},
+      borrow_title = #{borrowTitle,jdbcType=VARCHAR},
+      borrow_between_date = #{borrowBetweenDate,jdbcType=VARCHAR},
+      borrow_data = #{borrowData,jdbcType=TIMESTAMP},
+      borrow_remark = #{borrowRemark,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      borrow_status = #{borrowStatus,jdbcType=INTEGER}
+    where borrow_id = #{borrowId,jdbcType=INTEGER}
+  </update>
+</mapper>

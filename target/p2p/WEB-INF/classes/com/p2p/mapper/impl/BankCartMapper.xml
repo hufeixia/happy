@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.BankCartMapper" >
+  <resultMap id="BaseResultMap" type="com.p2p.model.BankCart" >
+    <constructor >
+      <idArg column="bcid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bsfz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="bealname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="bcartid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="btel" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="btype" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bcid, bsfz, bealname, bcartid, btel, btype
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bank_cart
+    where bcid = #{bcid,jdbcType=INTEGER}
+  </select>
+  <select id="QueryBankCartBySfz" resultType="com.p2p.model.BankCart" parameterType="com.p2p.model.BankCart">
+    select * from t_bank_cart where bsfz = #{bsfz}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bank_cart
+    where bcid = #{bcid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.p2p.model.BankCart" >
+    insert into t_bank_cart (bsfz, bealname,
+      bcartid, btel, btype
+      )
+    values (#{bsfz,jdbcType=VARCHAR}, #{bealname,jdbcType=VARCHAR},
+      #{bcartid,jdbcType=VARCHAR}, #{btel,jdbcType=VARCHAR}, #{btype,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.p2p.model.BankCart" >
+    insert into t_bank_cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bcid != null" >
+        bcid,
+      </if>
+      <if test="bsfz != null" >
+        bsfz,
+      </if>
+      <if test="bealname != null" >
+        bealname,
+      </if>
+      <if test="bcartid != null" >
+        bcartid,
+      </if>
+      <if test="btel != null" >
+        btel,
+      </if>
+      <if test="btype != null" >
+        btype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bcid != null" >
+        #{bcid,jdbcType=INTEGER},
+      </if>
+      <if test="bsfz != null" >
+        #{bsfz,jdbcType=VARCHAR},
+      </if>
+      <if test="bealname != null" >
+        #{bealname,jdbcType=VARCHAR},
+      </if>
+      <if test="bcartid != null" >
+        #{bcartid,jdbcType=VARCHAR},
+      </if>
+      <if test="btel != null" >
+        #{btel,jdbcType=VARCHAR},
+      </if>
+      <if test="btype != null" >
+        #{btype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.BankCart" >
+    update t_bank_cart
+    <set >
+      <if test="bsfz != null" >
+        bsfz = #{bsfz,jdbcType=VARCHAR},
+      </if>
+      <if test="bealname != null" >
+        bealname = #{bealname,jdbcType=VARCHAR},
+      </if>
+      <if test="bcartid != null" >
+        bcartid = #{bcartid,jdbcType=VARCHAR},
+      </if>
+      <if test="btel != null" >
+        btel = #{btel,jdbcType=VARCHAR},
+      </if>
+      <if test="btype != null" >
+        btype = #{btype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bcid = #{bcid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.p2p.model.BankCart" >
+    update t_bank_cart
+    set bsfz = #{bsfz,jdbcType=VARCHAR},
+      bealname = #{bealname,jdbcType=VARCHAR},
+      bcartid = #{bcartid,jdbcType=VARCHAR},
+      btel = #{btel,jdbcType=VARCHAR},
+      btype = #{btype,jdbcType=VARCHAR}
+    where bcid = #{bcid,jdbcType=INTEGER}
+  </update>
+</mapper>

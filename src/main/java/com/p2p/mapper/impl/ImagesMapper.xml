@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.ImagesMapper">
+    <resultMap id="BaseResultMap" type="com.p2p.model.Images">
+        <constructor>
+            <idArg column="iid" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="identityid" jdbcType="INTEGER" javaType="java.lang.String"/>
+            <arg column="uname" jdbcType="INTEGER" javaType="java.lang.String"/>
+            <arg column="img_path" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="itype" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="scope" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    iid, identityid, uid, img_path, itype, scope, status
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from images
+        where iid = #{iid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from images
+    where iid = #{iid,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.p2p.model.Images">
+    insert into images (identityid, uname,
+      img_path, itype, scope)
+    values (#{identityid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR},
+      #{imgPath,jdbcType=VARCHAR}, #{itype,jdbcType=VARCHAR}, #{scope,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.p2p.model.Images">
+        insert into images
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="iid != null">
+                iid,
+            </if>
+            <if test="identityid != null">
+                identityid,
+            </if>
+            <if test="uname != null">
+                uname,
+            </if>
+            <if test="imgPath != null">
+                img_path,
+            </if>
+            <if test="itype != null">
+                itype,
+            </if>
+            <if test="scope != null">
+                scope,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="iid != null">
+                #{iid,jdbcType=INTEGER},
+            </if>
+            <if test="identityid != null">
+                #{identityid,jdbcType=VARCHAR},
+            </if>
+            <if test="uid != null">
+                #{uname,jdbcType=VARCHAR},
+            </if>
+            <if test="imgPath != null">
+                #{imgPath,jdbcType=VARCHAR},
+            </if>
+            <if test="itype != null">
+                #{itype,jdbcType=VARCHAR},
+            </if>
+            <if test="scope != null">
+                #{scope,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.Images">
+        update images
+        <set>
+            <if test="identityid != null">
+                identityid = #{identityid,jdbcType=VARCHAR},
+            </if>
+            <if test="uname != null">
+                uname = #{uname,jdbcType=VARCHAR},
+            </if>
+            <if test="imgPath != null">
+                img_path = #{imgPath,jdbcType=VARCHAR},
+            </if>
+            <if test="itype != null">
+                itype = #{itype,jdbcType=VARCHAR},
+            </if>
+            <if test="scope != null">
+                scope = #{scope,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where iid = #{iid,jdbcType=INTEGER}
+    </update>
+    <update id="ImagesByPrimaryImgType" parameterType="com.p2p.model.Images">
+        update images set uname=#{uname}
+        where identityid = #{identityid}
+    </update>
+
+</mapper>

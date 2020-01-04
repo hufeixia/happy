@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.RepaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.p2p.model.Repayment" >
+    <constructor >
+      <idArg column="rid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <idArg column="borrowid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rtitle" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmothod" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="borrowMoney" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="repaymentMoney" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="remain" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="borrowDate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rdate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rstatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rid,borrowid, uname, rtitle, rmothod, borrowMoney, repaymentMoney, remain, borrowDate, rdate,
+    rstatus
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from repayment
+    where rid = #{rid,jdbcType=INTEGER}
+  </select>
+  <select id="RepaymentQuerySing" resultType="com.p2p.model.Repayment" parameterType="com.p2p.model.Repayment">
+    select * from repayment where borrowid = #{borrowid}
+  </select>
+  <select id="QueryMaxKey" resultType="int">
+    select max(rid) from repayment
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from repayment
+    where rid = #{rid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.p2p.model.Repayment" >
+    insert into repayment ( uname, rtitle,
+      rmothod, borrowMoney, repaymentMoney,
+      remain, borrowDate, rdate,borrowid)
+    values (#{uname,jdbcType=VARCHAR}, #{rtitle,jdbcType=VARCHAR},
+      #{rmothod,jdbcType=VARCHAR}, #{borrowmoney,jdbcType=INTEGER}, #{repaymentmoney,jdbcType=INTEGER}, 
+      #{remain,jdbcType=INTEGER}, #{borrowdate,jdbcType=VARCHAR}, #{rdate,jdbcType=VARCHAR}, #{borrowid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.p2p.model.Repayment" >
+    insert into repayment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rid != null" >
+        rid,
+      </if>
+      <if test="uname != null" >
+        uname,
+      </if>
+      <if test="rtitle != null" >
+        rtitle,
+      </if>
+      <if test="rmothod != null" >
+        rmothod,
+      </if>
+      <if test="borrowmoney != null" >
+        borrowMoney,
+      </if>
+      <if test="repaymentmoney != null" >
+        repaymentMoney,
+      </if>
+      <if test="remain != null" >
+        remain,
+      </if>
+      <if test="borrowdate != null" >
+        borrowDate,
+      </if>
+      <if test="rdate != null" >
+        rdate,
+      </if>
+      <if test="rstatus != null" >
+        rstatus,
+      </if>
+      <if test="borrowid != null" >
+        borrowid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rid != null" >
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="rtitle != null" >
+        #{rtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="rmothod != null" >
+        #{rmothod,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowmoney != null" >
+        #{borrowmoney,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentmoney != null" >
+        #{repaymentmoney,jdbcType=INTEGER},
+      </if>
+      <if test="remain != null" >
+        #{remain,jdbcType=INTEGER},
+      </if>
+      <if test="borrowdate != null" >
+        #{borrowdate,jdbcType=VARCHAR},
+      </if>
+      <if test="rdate != null" >
+        #{rdate,jdbcType=VARCHAR},
+      </if>
+      <if test="rstatus != null" >
+        #{rstatus,jdbcType=INTEGER},
+      </if>
+      <if test="borrowid != null" >
+        #{borrowid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.Repayment" >
+    update repayment
+    <set >
+      <if test="uname != null" >
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="rtitle != null" >
+        rtitle = #{rtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="rmothod != null" >
+        rmothod = #{rmothod,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowmoney != null" >
+        borrowMoney = #{borrowmoney,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentmoney != null" >
+        repaymentMoney = #{repaymentmoney,jdbcType=INTEGER},
+      </if>
+      <if test="remain != null" >
+        remain = #{remain,jdbcType=INTEGER},
+      </if>
+      <if test="borrowdate != null" >
+        borrowDate = #{borrowdate,jdbcType=VARCHAR},
+      </if>
+      <if test="rdate != null" >
+        rdate = #{rdate,jdbcType=VARCHAR},
+      </if>
+      <if test="rstatus != null" >
+        rstatus = #{rstatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.p2p.model.Repayment" >
+    update repayment
+    set uname = #{uname,jdbcType=VARCHAR},
+      rtitle = #{rtitle,jdbcType=VARCHAR},
+      rmothod = #{rmothod,jdbcType=VARCHAR},
+      borrowMoney = #{borrowmoney,jdbcType=INTEGER},
+      repaymentMoney = #{repaymentmoney,jdbcType=INTEGER},
+      remain = #{remain,jdbcType=INTEGER},
+      borrowDate = #{borrowdate,jdbcType=VARCHAR},
+      rdate = #{rdate,jdbcType=VARCHAR},
+      rstatus = #{rstatus,jdbcType=INTEGER}
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="UpdateRepayment" parameterType="com.p2p.model.Repayment">
+    update repayment set remain = remain-#{repaymentmoney}
+    where rid = #{rid}
+  </update>
+</mapper>

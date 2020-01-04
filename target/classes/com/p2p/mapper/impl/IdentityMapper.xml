@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2p.mapper.IdentityMapper">
+    <resultMap id="BaseResultMap" type="com.p2p.model.Identity">
+        <constructor>
+            <idArg column="iid" jdbcType="INTEGER" javaType="java.lang.String"/>
+            <arg column="uname" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="realname" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="sex" jdbcType="CHAR" javaType="java.lang.String"/>
+            <arg column="cartid" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="bosdy" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="idaddress" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="istatus" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    iid, uname, realname, sex, cartid, bosdy, idaddress, istatus
+  </sql>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from identity
+    where iid = #{iid,jdbcType=VARCHAR}
+  </delete>
+    <select id="IdentityByPrimaryRealName" resultType="com.p2p.model.Identity">
+        select * from identity where uname = #{realName}
+    </select>
+    <insert id="insert" parameterType="com.p2p.model.Identity">
+    insert into identity(iid,uname,realname,sex,cartid,bosdy,idaddress)
+    values(#{iid},#{uname},#{realname},#{sex},#{cartid},#{bosdy},#{idaddress})
+  </insert>
+    <insert id="insertSelective" parameterType="com.p2p.model.Identity">
+        insert into identity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="iid != null">
+                iid,
+            </if>
+            <if test="uname != null">
+                uname,
+            </if>
+            <if test="realname != null">
+                realname,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="cartid != null">
+                cartid,
+            </if>
+            <if test="bosdy != null">
+                bosdy,
+            </if>
+            <if test="idaddress != null">
+                idaddress,
+            </if>
+            <if test="istatus != null">
+                istatus,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="iid != null">
+                #{iid,jdbcType=VARCHAR},
+            </if>
+            <if test="uname != null">
+                #{uname,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="cartid != null">
+                #{cartid,jdbcType=VARCHAR},
+            </if>
+            <if test="bosdy != null">
+                #{bosdy,jdbcType=VARCHAR},
+            </if>
+            <if test="idaddress != null">
+                #{idaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="istatus != null">
+                #{istatus,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.Identity">
+        update identity
+        <set>
+            <if test="uname != null">
+                uname = #{uname,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                realname = #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="cartid != null">
+                cartid = #{cartid,jdbcType=VARCHAR},
+            </if>
+            <if test="bosdy != null">
+                bosdy = #{bosdy,jdbcType=VARCHAR},
+            </if>
+            <if test="idaddress != null">
+                idaddress = #{idaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="istatus != null">
+                istatus = #{istatus,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where iid = #{iid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.p2p.model.Identity">
+    update identity
+    set uname = #{uname,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      cartid = #{cartid,jdbcType=VARCHAR},
+      bosdy = #{bosdy,jdbcType=VARCHAR},
+      idaddress = #{idaddress,jdbcType=VARCHAR},
+      istatus = #{istatus,jdbcType=VARCHAR}
+    where iid = #{iid,jdbcType=VARCHAR}
+  </update>
+</mapper>
