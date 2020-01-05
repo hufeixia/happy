@@ -28,6 +28,25 @@
   <select id="QueryListBorrow" resultType="com.p2p.model.Borrow" parameterType="com.p2p.model.Borrow">
     select * from borrow where user_name = #{userName}
   </select>
+  <select id="listPage" resultType="com.p2p.model.Borrow">
+    select * FROM  borrow where 1=1
+    <if test="userName != ''">
+      and user_name LIKE  concat('%',#{userName},'%')
+    </if>
+    <if test="startDate != '' and endDate != ''">
+      and date_format(borrow_data,'%Y-%m-%d') BETWEEN #{startDate} and #{endDate}
+    </if>
+  </select>
+  <select id="listStatusPage" resultType="com.p2p.model.Borrow">
+    select * FROM  borrow where 1=1  and borrow_status = 0
+    <if test="startDate != '' and endDate != ''">
+      and date_format(borrow_data,'%Y-%m-%d') BETWEEN #{startDate} and #{endDate}
+    </if>
+    <if test="userName != ''">
+      and user_name LIKE  concat('%',#{userName},'%')
+    </if>
+
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from borrow
     where borrow_id = #{borrowId,jdbcType=INTEGER}
@@ -152,5 +171,11 @@
       method = #{method,jdbcType=VARCHAR},
       borrow_status = #{borrowStatus,jdbcType=INTEGER}
     where borrow_id = #{borrowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateStatus" parameterType="com.p2p.model.Borrow">
+    update borrow
+    SET  borrow_status = #{borrowStatus},
+     borrow_remark = #{borrowRemark}
+     WHERE  borrow_id = #{borrowId}
   </update>
 </mapper>

@@ -8,10 +8,11 @@
             <arg column="flow_type" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="flow_money" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="flow_date" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="flow_borrow" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    flow_id, user_name, flow_type, flow_money, flow_date
+    flow_id, user_name, flow_type, flow_money, flow_date,flow_borrow
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -34,10 +35,10 @@
         SELECT *
         FROM account_flow
         WHERE 1=1
-        <if test="startDate != null and endDate != null">
+        <if test="startDate != '' and endDate != ''">
             and date_format(flow_date,'%Y-%m-%d') BETWEEN #{startDate} and #{endDate}
         </if>
-        <if test="userName != null">
+        <if test="userName != ''">
             and user_name LIKE concat('%',#{userName},'%')
         </if>
 
@@ -61,6 +62,9 @@
             <if test="flowDate != null">
                 flow_date,
             </if>
+            <if test="flowBorrow != null">
+                flow_borrow,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="flowId != null">
@@ -77,6 +81,9 @@
             </if>
             <if test="flowDate != null">
                 #{flowDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="flowBorrow != null">
+                #{flowBorrow,jdbcType=VARCHAR}
             </if>
         </trim>
     </insert>
