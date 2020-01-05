@@ -1,10 +1,14 @@
 package com.p2p.service.impl;
 
+import com.p2p.dto.UserDto;
 import com.p2p.mapper.UsersMapper;
 import com.p2p.model.Users;
 import com.p2p.service.IUsersService;
+import com.p2p.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UsersServiceImpl implements IUsersService {
@@ -47,4 +51,11 @@ public class UsersServiceImpl implements IUsersService {
     public Users UsersByPrimaryName(String userName) {
         return usersMapper.UsersByPrimaryName(userName);
     }
+
+    @Override
+    public List<UserDto> seleDtoPage(String username, String startDate, String endDate, PageBean pageBean) {
+        return usersMapper.seleDtoPage(username, startDate, endDate, pageBean);
+    }
+
+
 }

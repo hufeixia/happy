@@ -6,7 +6,7 @@ import lombok.ToString;
 import java.util.Date;
 
 @ToString
-public class AccountFlow {
+public class UserFlow {
     private Integer flowId;
 
     private String userName;
@@ -18,51 +18,27 @@ public class AccountFlow {
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "GMT+8")
     private Date flowDate;
 
-    private String flowBorrow;//流水项目
+    private String flowStatus;
 
-    //时间
-    private String startDate;
-    private String endDate;
-
-
-    public AccountFlow(Integer flowId, String userName, String flowType, Integer flowMoney, Date flowDate, String flowBorrow, String startDate, String endDate) {
+    public UserFlow(Integer flowId, String userName, String flowType, Integer flowMoney, Date flowDate, String flowStatus) {
         this.flowId = flowId;
         this.userName = userName;
         this.flowType = flowType;
         this.flowMoney = flowMoney;
         this.flowDate = flowDate;
-        this.flowBorrow = flowBorrow;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.flowStatus = flowStatus;
     }
 
-    public AccountFlow() {
+    public UserFlow() {
         super();
     }
 
-
-    public String getFlowBorrow() {
-        return flowBorrow;
+    public String getFlowStatus() {
+        return flowStatus;
     }
 
-    public void setFlowBorrow(String flowBorrow) {
-        this.flowBorrow = flowBorrow;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setFlowStatus(String flowStatus) {
+        this.flowStatus = flowStatus;
     }
 
     public Integer getFlowId() {

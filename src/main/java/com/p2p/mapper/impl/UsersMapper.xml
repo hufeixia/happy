@@ -23,7 +23,20 @@
   <select id="UsersByPrimaryName" resultType="com.p2p.model.Users">
     select * from t_sys_user where username = #{userName}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <select id="seleDtoPage" resultType="com.p2p.dto.UserDto">
+      SELECT * from
+      t_sys_user u LEFT JOIN
+      identity i ON (u.username = i.uname) LEFT JOIN
+      personal p on (u.username = p.uname)
+      where 1=1
+      <if test="username != ''">
+        and u.username LIKE  concat('%',#{username},'%')
+      </if>
+    <if test="startDate != '' and endDate != ''">
+      and date_format(u.createdate,'%Y-%m-%d') BETWEEN #{startDate} and #{endDate}
+    </if>
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_sys_user
     where userid = #{userid,jdbcType=INTEGER}
   </delete>
