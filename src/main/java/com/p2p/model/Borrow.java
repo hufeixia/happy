@@ -1,6 +1,8 @@
 package com.p2p.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Borrow {
     private Integer borrowId;

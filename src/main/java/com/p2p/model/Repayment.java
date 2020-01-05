@@ -26,7 +26,14 @@ public class Repayment {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private String rdate;
 
+    private String endRdate;
+
+
     private Integer rstatus;
+
+    public Repayment(){
+
+    }
 
     public Repayment(Integer rid, Integer borrowid, String uname, String rtitle, String rmothod, Integer borrowmoney, Integer repaymentmoney, Integer remain, String borrowdate, String rdate, Integer rstatus) {
         this.rid = rid;
@@ -44,6 +51,14 @@ public class Repayment {
 
     public Integer getRid() {
         return rid;
+    }
+
+    public String getEndRdate() {
+        return endRdate;
+    }
+
+    public void setEndRdate(String endRdate) {
+        this.endRdate = endRdate;
     }
 
     public void setRid(Integer rid) {

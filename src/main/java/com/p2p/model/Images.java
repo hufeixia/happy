@@ -16,15 +16,21 @@ public class Images {
 
     private Integer scope;
 
+    private String remark;
+
+    private String auditor;
+
     private String status;
 
-    public Images(Integer iid, String identityid, String uname, String imgPath, String itype, Integer scope, String status) {
+    public Images(Integer iid, String identityid, String uname, String imgPath, String itype, Integer scope, String remark, String auditor, String status) {
         this.iid = iid;
         this.identityid = identityid;
         this.uname = uname;
         this.imgPath = imgPath;
         this.itype = itype;
         this.scope = scope;
+        this.remark = remark;
+        this.auditor = auditor;
         this.status = status;
     }
 
@@ -80,11 +86,42 @@ public class Images {
         this.scope = scope;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getAuditor() {
+        return auditor;
+    }
+
+    public void setAuditor(String auditor) {
+        this.auditor = auditor;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Images{" +
+                "iid=" + iid +
+                ", identityid='" + identityid + '\'' +
+                ", uname='" + uname + '\'' +
+                ", imgPath='" + imgPath + '\'' +
+                ", itype='" + itype + '\'' +
+                ", scope=" + scope +
+                ", remark='" + remark + '\'' +
+                ", auditor='" + auditor + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
