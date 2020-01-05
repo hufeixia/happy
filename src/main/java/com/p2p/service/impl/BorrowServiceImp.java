@@ -1,8 +1,10 @@
 package com.p2p.service.impl;
 
+import com.p2p.dto.DataDto;
 import com.p2p.mapper.BorrowMapper;
 import com.p2p.model.Borrow;
 import com.p2p.service.IBorrowService;
+import com.p2p.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,4 +53,21 @@ public class BorrowServiceImp implements IBorrowService {
     public List<Borrow> QueryListBorrow(Borrow record) {
         return borrowMapper.QueryListBorrow(record);
     }
+
+    @Override
+    public List<Borrow> listPage(String userName, String startDate, String endDate, PageBean pageBean) {
+        return borrowMapper.listPage(userName, startDate, endDate, pageBean);
+    }
+
+    @Override
+    public List<Borrow> listStatusPage(String userName, String startDate, String endDate, PageBean pageBean) {
+        return borrowMapper.listStatusPage(userName, startDate, endDate, pageBean);
+    }
+
+    @Override
+    public int updateStatus(Borrow borrow) {
+        return borrowMapper.updateStatus(borrow);
+    }
+
+
 }
