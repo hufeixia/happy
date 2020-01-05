@@ -1,11 +1,14 @@
 package com.p2p.controller;
 
+import com.p2p.dto.DataDto;
+import com.p2p.dto.UserDto;
 import com.p2p.model.LoginHistory;
 import com.p2p.model.Users;
 import com.p2p.service.ILoginHistoryService;
 import com.p2p.service.IUsersService;
 import com.p2p.shiro.PasswordHelper;
 import com.p2p.util.HttpUtils;
+import com.p2p.util.PageBean;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.apache.shiro.SecurityUtils;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -121,6 +125,27 @@ public class UsersController {
         }
 
         return u;
+    }
+
+
+    @RequestMapping(value = "/seleDtoPage")
+    @ResponseBody
+    @CrossOrigin
+    public Map seleDtoPage(HttpServletRequest req, UserDto userDto, DataDto dataDto) {
+        Map map = new HashMap();
+        PageBean pageBean = new PageBean();
+        pageBean.initPageBean(req,pageBean);
+
+        List<UserDto> userDtos = usersService.seleDtoPage(userDto.getUsername(),dataDto.getStartDate(),dataDto.getEndDate(),pageBean);
+        System.out.println(userDtos);
+        if(userDtos != null){
+            map.put("userDtos",userDtos);
+        }
+        map.put("page", pageBean.getPage());
+        map.put("total", userDtos.size());
+        map.put("rows", pageBean.getRows());
+
+        return map;
     }
 
 
