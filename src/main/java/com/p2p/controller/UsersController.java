@@ -1,6 +1,8 @@
 package com.p2p.controller;
 
+import com.p2p.model.LoginHistory;
 import com.p2p.model.Users;
+import com.p2p.service.ILoginHistoryService;
 import com.p2p.service.IUsersService;
 import com.p2p.shiro.PasswordHelper;
 import com.p2p.util.HttpUtils;
@@ -27,6 +29,9 @@ public class UsersController {
     @Autowired
     private IUsersService usersService;
 
+    @Autowired
+    private ILoginHistoryService loginHistoryService;
+
     @RequestMapping(value = "/Login")
     @ResponseBody
     @CrossOrigin
@@ -42,6 +47,10 @@ public class UsersController {
             message.put("loginfo", "登录成功");
             request.getServletContext().setAttribute("username",token.getUsername());
             message.put("users", token);
+            //登录成功生产一条登录历史
+            LoginHistory loginHistory = new LoginHistory();
+            loginHistory.setuName(username);
+            int i = loginHistoryService.insertSelective(loginHistory);
         } catch (Exception e) {
             message.put("code", 1);
             message.put("loginfo", "抱歉账号或密码错误,请检查后重新登录");
@@ -113,5 +122,6 @@ public class UsersController {
 
         return u;
     }
+
 
 }

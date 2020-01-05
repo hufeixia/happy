@@ -123,7 +123,12 @@ public class DetailsController {
 
 
 
-
+    @RequestMapping(value = "/Querytpes")//查询数据字典
+    @CrossOrigin
+    public List Querytpes(){
+        List<Details> details1 = iDetailsService.QueryType();
+        return details1;
+    }
 
 
 

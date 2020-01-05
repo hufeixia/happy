@@ -4,14 +4,17 @@ import com.p2p.model.Account;
 import com.p2p.model.Repayment;
 import com.p2p.service.IAccountService;
 import com.p2p.service.IRepaymentService;
+import com.p2p.util.PageBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -41,7 +44,7 @@ public class RepaymentController {
             if(null!=acc){
                 account.setAmount(acc.getAvail()-repayment.getRepaymentmoney());//总金额=总金额-可用金额
                 account.setAvail(acc.getAvail()-repayment.getRepaymentmoney());
-                account.setWait(repayment.getBorrowmoney()-repayment.getRepaymentmoney());
+                account.setWait(acc.getWait()-repayment.getRepaymentmoney());
                 int i = accountService.updateByPrimaryKey(account);
                 if(0!=i){
                     int primaryKey = repaymentService.QueryMaxKey();
@@ -67,13 +70,28 @@ public class RepaymentController {
     @RequestMapping(value = "/QuerySingRepayment")
     @ResponseBody
     @CrossOrigin
-    public Repayment QuerySingRepayment(Repayment repayment) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String format = sdf.format(repayment.getBorrowdate());
-        repayment.setBorrowdate(format);
-        Repayment r = repaymentService.RepaymentQuerySing(repayment);
-        return r;
+    public List QuerySingRepayment(Repayment repayment) {
+        System.out.println(repayment);
+        List<Repayment> repayments = repaymentService.RepaymentQuerySing(repayment);
+        return repayments;
     }
+
+    @RequestMapping(value = "/RepaymentPage")
+    @ResponseBody
+    @CrossOrigin
+    public Map RepaymentPage(Repayment repayment,HttpServletRequest request) {
+        String endRdate = request.getParameter("endRdate");
+        repayment.setEndRdate(endRdate);
+        Map<String,Object> json = new HashMap<String,Object>();
+        PageBean pageBean = new PageBean();
+        pageBean.initPageBean(request,pageBean);
+        List<Repayment> repayments = repaymentService.QueryPage(repayment.getUname(),repayment.getRdate(),repayment.getEndRdate(), pageBean);
+        json.put("repayments",repayments);
+        json.put("pageBean",pageBean);
+        return json;
+    }
+
+
 
 
 }

@@ -32,12 +32,23 @@ public class PersonalController {
     @CrossOrigin
     public Map addPersonal(Personal personal) {
         Map<String, Object> message = new HashMap<String, Object>();
-        int insert = personalService.insert(personal);
-        if (0 != insert) {
-            message.put("code", 0);
-            message.put("addInfo", "资料完善成功");
-        } else {
-            message.put("addInfo", "资料完善失败，请核对后重试");
+        Personal personal1 = personalService.PersonalByPrimaryName(personal.getUname());//得到用户信息
+        if(null!=personal1){
+            int per = personalService.updateByPrimaryKey(personal);
+            if (0 != per) {
+                message.put("code", 0);
+                message.put("addInfo", "资料完善成功");
+            } else {
+                message.put("addInfo", "资料完善失败，请核对后重试");
+            }
+        }else{
+            int insert = personalService.insert(personal);
+            if (0 != insert) {
+                message.put("code", 0);
+                message.put("addInfo", "资料完善成功");
+            } else {
+                message.put("addInfo", "资料完善失败，请核对后重试");
+            }
         }
         return message;
     }

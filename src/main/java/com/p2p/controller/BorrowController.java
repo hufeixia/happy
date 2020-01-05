@@ -1,7 +1,9 @@
 package com.p2p.controller;
 
 import com.p2p.model.Borrow;
+import com.p2p.model.Repayment;
 import com.p2p.service.IBorrowService;
+import com.p2p.service.IRepaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +21,9 @@ public class BorrowController {
     @Autowired
     private IBorrowService borrowService;
 
+    @Autowired
+    private IRepaymentService repaymentService;
+
     @RequestMapping(value = "/addBorrow")
     @ResponseBody
     public Map addBorrow(Borrow borrow){
@@ -35,9 +40,19 @@ public class BorrowController {
 
     @RequestMapping(value = "/QueryBorrow")
     @ResponseBody
-    public List QueryBorrow(Borrow borrow){
+    public Map QueryBorrow(Borrow borrow){
+        Map<String,Object> json = new HashMap<String,Object>();
         List<Borrow> borrows = borrowService.QueryListBorrow(borrow);
-        return borrows;
+        json.put("borrows",borrows);
+        Repayment repayment = null;
+        for (Borrow borrow1 : borrows) {
+            repayment = new Repayment();
+            Integer borrowId = borrow1.getBorrowId();
+            repayment.setBorrowid(borrowId);
+            List<Repayment> repayments = repaymentService.RepaymentQuerySing(repayment);
+            json.put("repayments",repayments);
+        }
+        return json;
     }
 
 }
