@@ -1,8 +1,8 @@
 package com.p2p.model;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
-import java.util.List;
 
 public class Borrow {
     private Integer borrowId;
@@ -17,6 +17,7 @@ public class Borrow {
 
     private String borrowBetweenDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date borrowData;
 
     private String borrowRemark;
