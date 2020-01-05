@@ -1,19 +1,21 @@
 package com.p2p.util;
-
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.json.JSONObject;
 import com.baidu.aip.face.AipFace;
 import com.baidu.aip.face.FaceVerifyRequest;
 import com.baidu.aip.face.MatchRequest;
 import com.baidu.aip.util.Base64Util;
-import org.json.JSONObject;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 //import Decoder.BASE64Decoder;
 
 public class FaceSpot {
-	
+
 	//private static final BASE64Decoder decoder = new BASE64Decoder();
 	private static final String AppID = "18002380";
 	private static final String APIKey = "2orBXDjw7FmL6YxplaO0dYXn";
@@ -26,37 +28,37 @@ public class FaceSpot {
 		client.setConnectionTimeoutInMillis(2000);
 		client.setSocketTimeoutInMillis(60000);
 	}
-	
+
 	//String file1 = "F:/3.png";
 	//String file2 = "F:/2.png";
 	//byte[] img1 = FileToByte(new File(file1));
 	//byte[] img2 = FileToByte(new File(file1));
 	//两个人脸对比返回分数
 	//matchFace(img1, img2);
-	
+
 	//增加一个用户
 	//addUser(img2,"BASE64","22","EasyBuy");
-	
+
 	//获得此用户所有面部Facial ID
 	//getUserFaceList("22","EasyBuy");
-	
+
 	//登录，支付时使用
 	//searchFace(img2, "EasyBuy","22");
-	
+
 	public static void main(String[] args) throws IOException {
 		//BASE64Decoder decoder = new BASE64Decoder();
-		String file1 = "C:/Users/Admin-Jia/Pictures/Camera Roll/7.jpg";
+		String file1 = "C:/Users/Admin-Jia/Pictures/Camera Roll/12.jpg";
 		byte[] img2 = FileToByte(new File(file1));
-		System.out.println(addUser(img2,"BASE64","1","admin"));
+//		System.out.println(addUser(img2,"BASE64","1","admin"));
 //		String file1 = "C:/Users/Admin-Jia/Pictures/Camera Roll/4.jpg";
 //		byte[] img2 = FileToByte(new File(file1));
-//		System.out.println(searchFace(img2,"admin","1"));
+		System.out.println(searchFace(img2,"admin","1"));
 //        System.out.println(addUser(img2,"BASE64","1","admin"));
 	}
 
 	/**
 	 * 人脸检测
-	 * 
+	 *
 	 * @return
 	 * @throws IOException
 	 */
@@ -71,7 +73,7 @@ public class FaceSpot {
 
 	/**
 	 * 人脸检测
-	 * 
+	 *
 	 * @return
 	 * @throws IOException
 	 */
@@ -98,7 +100,7 @@ public class FaceSpot {
 
 	/**
 	 * 人脸比对
-	 * 
+	 *
 	 * @param file1
 	 * @param file2
 	 * @return
@@ -114,7 +116,7 @@ public class FaceSpot {
 
 	/**
 	 * 人脸比对
-	 * 
+	 *
 	 * @param arg0
 	 *            人脸1
 	 * @param arg1
@@ -135,7 +137,7 @@ public class FaceSpot {
 
 	/**
 	 * 人脸搜索
-	 * 
+	 *
 	 * @param file
 	 * @param groupIdList
 	 * @param userId
@@ -145,7 +147,7 @@ public class FaceSpot {
 		try {
 			return searchFace(FileToByte(file), groupIdList, userId);
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 		return null;
@@ -153,13 +155,13 @@ public class FaceSpot {
 
 	/**
 	 * 人脸搜索
-	 * 
+	 *
 	 * @param arg0
 	 * @param groupIdList
 	 * @return
 	 */
 	public static String searchFace(byte[] arg0, String groupIdList,
-			String userId) {
+									String userId) {
 		String imgStr = Base64Util.encode(arg0);
 		System.out.println("imgStr========="+imgStr);
 		String imageType = "BASE64";
@@ -175,7 +177,7 @@ public class FaceSpot {
 	}
 	//Base64参数
 	public static JSONObject searchFace(String imgStr, String groupIdList,
-			String userId) {
+										String userId) {
 		String imageType = "BASE64";
 		HashMap<String, String> options = new HashMap<String, String>();
 		options.put("quality_control", "NORMAL");
@@ -191,7 +193,7 @@ public class FaceSpot {
 
 	/**
 	 * 增加用户
-	 * 
+	 *
 	 * @param file
 	 * @param userInfo
 	 * @param userId
@@ -199,11 +201,11 @@ public class FaceSpot {
 	 * @return
 	 */
 	public static String addUser(File file, String userInfo, String userId,
-			String groupId) {
+								 String groupId) {
 		try {
 			return addUser(FileToByte(file), userInfo, userId, groupId);
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 		return null;
@@ -211,7 +213,7 @@ public class FaceSpot {
 
 	/**
 	 * 增加用户
-	 * 
+	 *
 	 * @param arg0
 	 * @param userInfo
 	 * @param userId
@@ -231,7 +233,7 @@ public class FaceSpot {
 	}
 
 	public static String updateUser(File file, String userInfo, String userId,
-			String groupId) {
+									String groupId) {
 		try {
 			return updateUser(FileToByte(file), userInfo, userId, groupId);
 		} catch (IOException e) {
@@ -242,7 +244,7 @@ public class FaceSpot {
 
 	/**
 	 * 更新用户
-	 * 
+	 *
 	 * @param arg0
 	 * @param userInfo
 	 * @param userId
@@ -250,7 +252,7 @@ public class FaceSpot {
 	 * @return
 	 */
 	public static String updateUser(byte[] arg0, String userInfo,
-			String userId, String groupId) {
+									String userId, String groupId) {
 		String imgStr = Base64Util.encode(arg0);
 		String imageType = "BASE64";
 		HashMap<String, String> options = new HashMap<String, String>();
@@ -267,14 +269,14 @@ public class FaceSpot {
 
 	/**
 	 * 删除用户人脸信息
-	 * 
+	 *
 	 * @param userId
 	 * @param groupId
 	 * @param faceToken
 	 * @return
 	 */
 	public static String deleteUserFace(String userId, String groupId,
-			String faceToken) {
+										String faceToken) {
 		HashMap<String, String> options = new HashMap<String, String>();
 		// 人脸删除
 		JSONObject res = client.faceDelete(userId, groupId, faceToken, options);
@@ -283,7 +285,7 @@ public class FaceSpot {
 
 	/**
 	 * 查询用户信息
-	 * 
+	 *
 	 * @param userId
 	 * @param groupId
 	 * @return
@@ -297,7 +299,7 @@ public class FaceSpot {
 
 	/**
 	 * 获取用户人脸列表
-	 * 
+	 *
 	 * @param userId
 	 * @param groupId
 	 * @return
@@ -311,7 +313,7 @@ public class FaceSpot {
 
 	/**
 	 * 获取一组用户
-	 * 
+	 *
 	 * @param groupId
 	 * @param returnNum
 	 * @return
@@ -329,14 +331,14 @@ public class FaceSpot {
 
 	/**
 	 * 组用户复制
-	 * 
+	 *
 	 * @param userId
 	 * @param srcGroupId
 	 * @param dstGroupId
 	 * @return
 	 */
 	public static String userCopy(String userId, String srcGroupId,
-			String dstGroupId) {
+								  String dstGroupId) {
 		HashMap<String, String> options = new HashMap<String, String>();
 		options.put("src_group_id", srcGroupId);
 		options.put("dst_group_id", dstGroupId);
@@ -347,7 +349,7 @@ public class FaceSpot {
 
 	/**
 	 * 删除用户
-	 * 
+	 *
 	 * @param userId
 	 * @param groupId
 	 * @return
@@ -361,7 +363,7 @@ public class FaceSpot {
 
 	/**
 	 * 增加组信息
-	 * 
+	 *
 	 * @param groupId
 	 * @return
 	 */
@@ -374,7 +376,7 @@ public class FaceSpot {
 
 	/**
 	 * 删除
-	 * 
+	 *
 	 * @param groupId
 	 * @return
 	 */
@@ -387,7 +389,7 @@ public class FaceSpot {
 
 	/**
 	 * 获取组列表
-	 * 
+	 *
 	 * @param length
 	 * @return
 	 */
@@ -402,7 +404,7 @@ public class FaceSpot {
 
 	/**
 	 * 活体检测
-	 * 
+	 *
 	 * @param arg0
 	 * @return
 	 */
