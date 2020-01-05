@@ -38,13 +38,13 @@ public class LoginHistoryController {
         Map<String, Object> map = new HashMap<String, Object>();
         PageBean pageBean = new PageBean();
         pageBean.initPageBean(req,pageBean);
-//        loginHistory.setuName("得到");
         List<LoginHistory> loginHistories = iLoginHistoryService.listPage(loginHistory.getuName(), loginHistory.getStartDate(), loginHistory.getEndDate(), pageBean);
 
         map.put("loginHistories", loginHistories);
         map.put("page", pageBean.getPage());
         map.put("total", pageBean.getTotal());
         map.put("rows", pageBean.getRows());
+        System.out.println("---------------------------"+pageBean.getPage());
 
 
         return map;

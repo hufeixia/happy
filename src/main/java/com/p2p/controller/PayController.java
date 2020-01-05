@@ -7,7 +7,9 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.p2p.dto.AccountMoneyDto;
 import com.p2p.model.Account;
+import com.p2p.model.UserFlow;
 import com.p2p.service.IAccountService;
+import com.p2p.service.IUserFlowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +38,8 @@ public class PayController {
 
     @Autowired
     private IAccountService accountService;
+    @Autowired
+    private IUserFlowService userFlowService;
 
 
     @RequestMapping("alipay")
@@ -71,17 +75,51 @@ public class PayController {
         String form = "";
         try {
             form = alipayClient.pageExecute(request).getBody(); // 调用SDK生成表单
+//            //(谭小聪)//生成一条用户流水
+            UserFlow userFlow = new UserFlow();
+
             Account account = new Account();
             if(null!=req.getParameter("uname")){
-                account.setUname(req.getParameter("uname"));
-                Account acc = accountService.QueryAccount(account);
-                account.setMoney(alipayMoney);
-                account.setAmount(acc.getAmount()+account.getMoney());
-                account.setAvail(acc.getAvail()+account.getMoney());
-                int i = accountService.UpdateAccountAlipayMoney(account);
-                if(0!=i){
-                    System.out.println("用户金额充值成功");
+                //如果类型是借款就进行给用户加钱的操作
+              if(req.getParameter("type").equals("借款")){
+                  account.setUname(req.getParameter("uname"));
+                  Account acc = accountService.QueryAccount(account);
+                  account.setMoney(alipayMoney);
+                  account.setAmount(acc.getAmount()+account.getMoney());
+                  account.setAvail(acc.getAvail()+account.getMoney());
+                  int i = accountService.UpdateAccountAlipayMoney(account);
+                  if(0!=i){
+                      System.out.println("用户金额充值成功");
+                      //加一条用户流水记录
+                      userFlow.setFlowMoney(alipayMoney);//金钱
+                      userFlow.setFlowType(req.getParameter("type"));
+                      userFlow.setUserName(req.getParameter("uname"));
+                      userFlow.setFlowStatus("1");
+                      int a = userFlowService.insertSelective(userFlow);
+                  }
+              }
+
+                //加一条用户流水记录
+//              if(req.getParameter("type").equals("提现")){
+//                  userFlow.setFlowMoney(alipayMoney);//金钱
+//                  userFlow.setFlowType(req.getParameter("type"));
+//                  userFlow.setUserName(req.getParameter("uname"));
+//                  userFlow.setFlowStatus("0");
+//                  int a = userFlowService.insertSelective(userFlow);
+//
+//              }
+
+                //加一条用户流水记录
+                if(req.getParameter("type").equals("充值")){
+                    userFlow.setFlowMoney(alipayMoney);//金钱
+                    userFlow.setFlowType(req.getParameter("type"));
+                    userFlow.setUserName(req.getParameter("uname"));
+                    userFlow.setFlowStatus("0");
+                    int a = userFlowService.insertSelective(userFlow);
+
                 }
+
+
             }
 
         } catch (AlipayApiException e) {
