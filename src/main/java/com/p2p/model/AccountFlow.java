@@ -15,27 +15,39 @@ public class AccountFlow {
 
     private Integer flowMoney;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "GMT+8")
     private Date flowDate;
+
+    private String flowBorrow;//流水项目
 
     //时间
     private String startDate;
     private String endDate;
 
-    public AccountFlow(Integer flowId, String userName, String flowType, Integer flowMoney, Date flowDate,String endDate,String startDate) {
+
+    public AccountFlow(Integer flowId, String userName, String flowType, Integer flowMoney, Date flowDate, String flowBorrow, String startDate, String endDate) {
         this.flowId = flowId;
         this.userName = userName;
         this.flowType = flowType;
         this.flowMoney = flowMoney;
         this.flowDate = flowDate;
-        this.endDate = endDate;
+        this.flowBorrow = flowBorrow;
         this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public AccountFlow() {
         super();
     }
 
+
+    public String getFlowBorrow() {
+        return flowBorrow;
+    }
+
+    public void setFlowBorrow(String flowBorrow) {
+        this.flowBorrow = flowBorrow;
+    }
 
     public String getStartDate() {
         return startDate;
