@@ -22,6 +22,8 @@ public interface DetailsMapper {
     //查询（模糊查询）
     List<Details> listPage(@Param("dname") String dname, PageBean pageBean);
 
+    List<Details> QueryType();
+
     List<Details> listAllPage(@Param("detailsName") String detailsName, PageBean pageBean);
 
 
