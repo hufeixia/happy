@@ -20,6 +20,8 @@ public interface IDetailsService {
     //查询（模糊查询）
     List<Details> listPage(String dname, PageBean pageBean);
 
+    List<Details> QueryType();
+
     List<Details> listAllPage(String detailsName, PageBean pageBean);
 
 

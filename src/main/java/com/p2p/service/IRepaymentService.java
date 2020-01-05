@@ -1,7 +1,11 @@
 package com.p2p.service;
 
 import com.p2p.model.Repayment;
+import com.p2p.util.PageBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 public interface IRepaymentService {
     int deleteByPrimaryKey(Integer rid);
@@ -16,10 +20,16 @@ public interface IRepaymentService {
 
     int updateByPrimaryKey(Repayment record);
 
-    Repayment RepaymentQuerySing(Repayment record);
+    List<Repayment> RepaymentQuerySing(Repayment record);
 
     int UpdateRepayment(Repayment record);
 
     int QueryMaxKey();
+
+    List<Repayment> QueryPage(String uname, String rdate, String endRdate,PageBean pageBean);
+
+
+
+
 
 }

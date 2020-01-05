@@ -16,4 +16,5 @@ public interface IPersonalService {
     int updateByPrimaryKey(Personal record);
 
     Personal PersonalByPrimaryName(String uname);
+
 }

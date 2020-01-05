@@ -1,6 +1,10 @@
 package com.p2p.service;
 
+import com.p2p.model.Images;
 import com.p2p.model.Message;
+import com.p2p.util.PageBean;
+
+import java.util.List;
 
 public interface IMessageService {
     int deleteByPrimaryKey(Integer mid);
