@@ -37,6 +37,10 @@
     </if>
 
   </select>
+  <select id="QueryType" resultType="com.p2p.model.Details">
+    SELECT  *
+    FROM  details
+  </select>
 
   <insert id="insertSelective" parameterType="com.p2p.model.Details" >
     insert into details

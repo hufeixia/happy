@@ -123,13 +123,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.p2p.model.Personal" >
     update personal
-    set uname = #{uname,jdbcType=VARCHAR},
+    set
       grxl = #{grxl,jdbcType=VARCHAR},
       profit = #{profit,jdbcType=INTEGER},
       marriage = #{marriage,jdbcType=VARCHAR},
       thing = #{thing,jdbcType=VARCHAR},
-      housing = #{housing,jdbcType=VARCHAR},
-      pstatus = #{pstatus,jdbcType=VARCHAR}
-    where pid = #{pid,jdbcType=INTEGER}
+      housing = #{housing,jdbcType=VARCHAR}
+    where uname = #{uname,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -10,6 +10,8 @@
             <arg column="itype" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="scope" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="auditor" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
@@ -27,9 +29,9 @@
   </delete>
     <insert id="insert" parameterType="com.p2p.model.Images">
     insert into images (identityid, uname,
-      img_path, itype, scope)
+      img_path, itype)
     values (#{identityid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR},
-      #{imgPath,jdbcType=VARCHAR}, #{itype,jdbcType=VARCHAR}, #{scope,jdbcType=INTEGER})
+      #{imgPath,jdbcType=VARCHAR}, #{itype,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.p2p.model.Images">
         insert into images
@@ -108,5 +110,27 @@
         update images set uname=#{uname}
         where identityid = #{identityid}
     </update>
+    <update id="UpdateImages" parameterType="com.p2p.model.Images">
+        update images set scope = #{scope},status = #{status},remark = #{remark},auditor = #{auditor}
+        where iid = #{iid}
+    </update>
+    <update id="NoImg" parameterType="com.p2p.model.Images">
+ update images set status = #{status} where iid = #{iid}
+    </update>
+
+    <select id="listImagesPage" resultType="com.p2p.model.Images" parameterType="com.p2p.model.Images">
+        select * from images where 1=1
+        order by iid desc
+    </select>
+    <select id="QueryImgPath" resultType="com.p2p.model.Images" parameterType="com.p2p.model.Images">
+        select * from images where iid = #{iid}
+    </select>
+    <select id="ImagesPath" resultType="com.p2p.model.Images" parameterType="com.p2p.model.Images">
+        select * from images where uname = #{uname}
+    </select>
+    <select id="SumScope" resultType="int">
+
+        select sum(scope) from images where uname = #{uname}
+    </select>
 
 </mapper>

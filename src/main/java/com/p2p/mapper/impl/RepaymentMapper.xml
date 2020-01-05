@@ -32,6 +32,18 @@
   <select id="QueryMaxKey" resultType="int">
     select max(rid) from repayment
   </select>
+  <select id="QueryPage" resultType="com.p2p.model.Repayment">
+    select * from repayment
+    where 1=1
+    <if test="uname != null and uname != ''">
+      and uname = #{uname}
+    </if>
+
+    <if test="rdate!='' and endRdate != '' ">
+      and date_format(rdate,'%Y-%m-%d') between #{rdate} and #{endRdate}
+    </if>
+
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from repayment
     where rid = #{rid,jdbcType=INTEGER}
