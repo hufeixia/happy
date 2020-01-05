@@ -35,6 +35,12 @@ public class IDetailsServiceImpl implements IDetailsService {
         return detailsMapper.listPage(dname,pageBean);
     }
 
+    @Override
+    public List<Details> QueryType() {
+
+        return detailsMapper.QueryType();
+    }
+
 
     @Override
     public List<Details> listAllPage(String detailsName, PageBean pageBean) {

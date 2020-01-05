@@ -45,6 +45,6 @@ public class PersonalServiceImpl implements IPersonalService {
 
     @Override
     public int updateByPrimaryKey(Personal record) {
-        return 0;
+        return personalMapper.updateByPrimaryKey(record);
     }
 }

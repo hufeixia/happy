@@ -3,8 +3,11 @@ package com.p2p.service.impl;
 import com.p2p.mapper.RepaymentMapper;
 import com.p2p.model.Repayment;
 import com.p2p.service.IRepaymentService;
+import com.p2p.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RepaymentServiceImpl implements IRepaymentService {
@@ -44,7 +47,7 @@ public class RepaymentServiceImpl implements IRepaymentService {
     }
 
     @Override
-    public Repayment RepaymentQuerySing(Repayment record) {
+    public List<Repayment> RepaymentQuerySing(Repayment record) {
 
         return repaymentMapper.RepaymentQuerySing(record);
     }
@@ -58,5 +61,10 @@ public class RepaymentServiceImpl implements IRepaymentService {
     @Override
     public int QueryMaxKey() {
         return repaymentMapper.QueryMaxKey();
+    }
+
+    @Override
+    public List<Repayment> QueryPage(String uname, String rdate, String endRdate,PageBean pageBean) {
+        return repaymentMapper.QueryPage(uname,rdate,endRdate,pageBean);
     }
 }
