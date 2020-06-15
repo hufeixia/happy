@@ -20,7 +20,7 @@
     <junit-version>4.12</junit-version>
     <servlet-version>4.0.0</servlet-version>
     <!--5.0.1.RELEASE有冲突-->
-    <spring.version>5.0.2.RELEASE</spring.version>
+    <spring.version>5.2.7.RELEASE</spring.version>
     <mybatis-version>3.4.5</mybatis-version>
     <pagehelper-version>5.1.2</pagehelper-version>
     <mysql-version>5.1.44</mysql-version>
