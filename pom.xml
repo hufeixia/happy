@@ -135,7 +135,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.44</version>
+      <version>8.0.16</version>
     </dependency>
 
     <!-- ********************** 4.mybatis与spring集成jar包 ********************** -->
@@ -445,7 +445,7 @@
             <dependency>
               <groupId>mysql</groupId>
               <artifactId>mysql-connector-java</artifactId>
-              <version>5.1.44</version>
+              <version>8.0.16</version>
             </dependency>
           </dependencies>
           <configuration>
