@@ -33,7 +33,7 @@
     <!-- redis与spring的整合依赖 -->
     <redis.version>2.9.0</redis.version>
     <redis.spring.version>1.7.1.RELEASE</redis.spring.version>
-    <shiro-version>1.2.5</shiro-version>
+    <shiro-version>1.7.1</shiro-version>
     <groupId>com.aliyun.api.gateway</groupId>
     <artifactId>java.demo</artifactId>
     <version>1.0-SNAPSHOT</version>
